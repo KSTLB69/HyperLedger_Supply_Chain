@@ -1,0 +1,28 @@
+asset Commodity identified by commodityid {
+o String commodityid
+o String name
+o String description
+o Double quantity
+o Double unitPrice optional
+o Double totalPrice optional
+o Trace[] trace
+--> PO purchaseOrder optional
+--> Trader owner optional
+--> Trader issuer optional
+}
+ 
+asset PO identified by orderid {
+o String orderid
+o Commodity[] itemList
+o Double orderTotalPrice optional
+o OrderStatus orderStatus optional
+--> Trader orderer
+--> Trader vendor
+}
+ 
+enum OrderStatus {
+o INITIATED
+o CONFIRMED
+o DELIVERING
+o DELIVERED
+}
