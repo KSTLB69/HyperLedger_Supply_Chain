@@ -1,0 +1,34 @@
+concept Address {
+o Double longtitude range=[-180.0, 180.0] optional
+o Double latitude range=[-90.0, 90.0] optional
+o String city optional
+o String country optional
+o String locality optional
+o String region optional
+o String street optional
+o String postalCode optional
+o String postOfficeBoxNumber optional
+}
+ 
+abstract participant Trader {
+ o String companyName
+ o Address address
+}
+ 
+participant Supplier identified by tradeId extends Trader {
+ o String tradeId 
+}
+ 
+participant Manufacturer identified by tradeId extends Trader {
+ o String tradeId 
+}
+ 
+participant Distributor identified by tradeId extends Trader {
+ o String tradeId 
+}
+participant Retailer identified by tradeId extends Trader {
+ o String tradeId 
+}
+participant Customer identified by tradeId extends Trader {
+ o String tradeId 
+}
