@@ -1,0 +1,29 @@
+/**
+ * Initiate PO from one trader to another
+ * @param {org.supplychain.network.InitiatePO} InitiatePO - the InitiatePO is to be processed
+ * @transaction
+ */
+function initiatePurchaseOrder(InitiatePO) {
+  console.log('Start of InitiatePO Function');
+  var factory = getFactory();
+  var NS = 'org.supplychain.network';
+  
+  var me = getCurrentParticipant();
+  
+  var order = factory.newResource(NS, 'PO', InitiatePO.orderId);
+  order.itemList = InitiatePO.itemList;
+  if (InitiatePO.orderTotalPrice) {
+  order.orderTotalPrice = InitiatePO.orderTotalPrice;
+  }
+  
+  order.orderStatus = 'INITIATED';
+  order.orderer = me;
+  order.vendor = InitiatePO.vendor;
+  
+ return getAssetRegistry(order.getFullyQualifiedType()).then(function (assetRegistry) {
+ 
+  return assetRegistry.add(order);
+ 
+ });
+  
+}
